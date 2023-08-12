@@ -19,3 +19,14 @@
 
 # Go workspace file
 go.work
+
+# Docker
+.docker
+
+# Log file
+*.log
+
+# Envs
+.env
+.env.development
+.env.production
