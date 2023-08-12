@@ -149,3 +149,37 @@ Run API:
 ```sh
 $ make dev
 ```
+
+## Scripts
+
+Build API:
+
+```sh
+$ make build
+```
+
+Start API after build:
+
+```sh
+$ make start
+```
+
+Upgrade dependencies:
+
+```sh
+$ make upgrade-dependencies
+```
+
+Generate coverage:
+
+```sh
+$ make test-coverage
+```
+
+Generate docs:
+
+> You need to install [swag](https://github.com/swaggo/swag) to use the CLI.
+
+```sh
+$ make generate-docs
+```
