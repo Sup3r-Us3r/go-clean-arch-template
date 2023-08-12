@@ -1,0 +1,120 @@
+basePath: /
+definitions:
+  apperr.AppErr:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  auth.SignInHandlerRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  auth.SignInHandlerResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  barber.CreateBarberHandlerRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: maydersonmello@gmail.com
+    name: Mayderson Mello
+    url: https://mayderson.me
+  description: BarberShop API
+  license:
+    name: MIT
+    url: https://github.com/Sup3r-Us3r/go-clean-arch-template/blob/main/LICENSE
+  termsOfService: http://swagger.io/terms
+  title: BarberShop API
+  version: "1.0"
+paths:
+  /v1/auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Authentication with email and password
+      parameters:
+      - description: authentication data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.SignInHandlerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.SignInHandlerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+      summary: Authentication
+      tags:
+      - auth
+  /v1/barber/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new barber
+      parameters:
+      - description: barber data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/barber.CreateBarberHandlerRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+      security:
+      - BearerAuth: []
+      summary: Create a barber
+      tags:
+      - barber
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
