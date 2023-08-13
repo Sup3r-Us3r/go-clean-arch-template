@@ -2,7 +2,7 @@
 
 ## Overview
 
-This template implements the Clean Architecture in a REST API made in Golang, it also has unit tests for `Entity`, `Repository`, `UseCase`, `Handler` and `Factory`.
+This template implements the Clean Architecture in a REST API made in Golang, it also has unit tests for `Entities`, `Repositories`, `UseCases`, `Handlers`, `Utility Functions` and `Factories`.
 
 ```text
 .
@@ -53,14 +53,25 @@ This template implements the Clean Architecture in a REST API made in Golang, it
 │   │           └── webserver.go
 │   ├── mapper/
 │   │   └── barber.go
-│   └── usecase/
-│       ├── auth/
-│       │   ├── sign_in_test.go
-│       │   └── sign_in.go
-│       ├── barber/
-│       │   ├── create_barber_test.go
-│       │   └── create_barber.go
-│       └── usecase.go
+│   ├── usecase/
+│   │   ├── auth/
+│   │   │   ├── sign_in_test.go
+│   │   │   └── sign_in.go
+│   │   ├── barber/
+│   │   │   ├── create_barber_test.go
+│   │   │   └── create_barber.go
+│   │   └── usecase.go
+│   └── util/
+│       ├── do_passwords_match_test.go
+│       ├── do_passwords_match.go
+│       ├── email_is_valid_test.go
+│       ├── email_is_valid.go
+│       ├── generate_random_salt_test.go
+│       ├── generate_random_salt.go
+│       ├── hash_password_test.go
+│       ├── hash_password.go
+│       ├── password_is_valid_test.go
+│       └── password_is_valid.go
 ├── log/
 │   └── log.go
 ├── test/
