@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/Sup3r-Us3r/barber-server/internal/domain/entity"
+	"github.com/Sup3r-Us3r/barber-server/internal/util"
 	"github.com/google/uuid"
 	"github.com/jaswdr/faker"
 )
@@ -13,7 +14,7 @@ import (
 func MakeBarber(override entity.Barber) entity.Barber {
 	fake := faker.New()
 
-	generateSalt := entity.GenerateRandomSalt(16)
+	generateSalt := util.GenerateRandomSalt(util.SALT_SIZE)
 	password := fmt.Sprintf(
 		"%v%v%v%v%v",
 		fake.Internet().Password(),
@@ -22,7 +23,7 @@ func MakeBarber(override entity.Barber) entity.Barber {
 		fake.RandomDigit(),
 		fake.RandomStringElement([]string{"!", "@", "#", "$", "&", "*", "(", ")"}),
 	)
-	hashedPassword := entity.HashPassword(password, generateSalt)
+	hashedPassword := util.HashPassword(password, generateSalt)
 
 	barber := &entity.Barber{
 		ID:           uuid.New().String(),

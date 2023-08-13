@@ -5,9 +5,9 @@ import (
 
 	"github.com/Sup3r-Us3r/barber-server/config"
 	"github.com/Sup3r-Us3r/barber-server/internal/domain/apperr"
-	"github.com/Sup3r-Us3r/barber-server/internal/domain/entity"
 	"github.com/Sup3r-Us3r/barber-server/internal/domain/gateway"
 	"github.com/Sup3r-Us3r/barber-server/internal/infra/repository"
+	"github.com/Sup3r-Us3r/barber-server/internal/util"
 )
 
 type SignInUseCaseInputDTO struct {
@@ -39,7 +39,7 @@ func (siuc *SignInUseCase) Execute(ctx context.Context, input SignInUseCaseInput
 		return SignInUseCaseOutputDTO{}, err
 	}
 
-	passwordMatch := entity.DoPasswordsMatch(barber.PasswordHash, input.Password)
+	passwordMatch := util.DoPasswordsMatch(barber.PasswordHash, input.Password)
 
 	if !passwordMatch {
 		return SignInUseCaseOutputDTO{}, apperr.ErrBarberUnableToAuthenticate
