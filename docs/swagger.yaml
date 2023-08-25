@@ -30,6 +30,41 @@ definitions:
       phone:
         type: string
     type: object
+  barber.FetchBarbersHandlerResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  barber.GetBarberByIdHandlerResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  barber.UpdateBarberHandlerRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact:
@@ -107,9 +142,124 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/apperr.AppErr'
+      summary: Create a barber
+      tags:
+      - barber
+  /v1/barber/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete barber by ID
+      parameters:
+      - description: barber id
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
       security:
       - BearerAuth: []
-      summary: Create a barber
+      summary: Delete Barber
+      tags:
+      - barber
+  /v1/barber/fetch:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all barbers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/barber.FetchBarbersHandlerResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+      security:
+      - BearerAuth: []
+      summary: Fetch barbers
+      tags:
+      - barber
+  /v1/barber/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get barber by ID
+      parameters:
+      - description: barber id
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/barber.GetBarberByIdHandlerResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+      security:
+      - BearerAuth: []
+      summary: Get barber
+      tags:
+      - barber
+  /v1/barber/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update barber data
+      parameters:
+      - description: update barber data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/barber.UpdateBarberHandlerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apperr.AppErr'
+      summary: Update a barber
       tags:
       - barber
 securityDefinitions:
