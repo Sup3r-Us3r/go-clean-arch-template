@@ -10,10 +10,10 @@ import (
 )
 
 type CreateBarberUseCaseInputDTO struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Phone    string `json:"phone"`
-	Password string `json:"password"`
+	Name     string
+	Email    string
+	Phone    string
+	Password string
 }
 
 type CreateBarberUseCaseInterface interface {

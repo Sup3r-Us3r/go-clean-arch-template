@@ -11,12 +11,12 @@ import (
 )
 
 type SignInUseCaseInputDTO struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string
+	Password string
 }
 
 type SignInUseCaseOutputDTO struct {
-	Token string `json:"token"`
+	Token string
 }
 
 type SignInUseCaseInterface interface {
