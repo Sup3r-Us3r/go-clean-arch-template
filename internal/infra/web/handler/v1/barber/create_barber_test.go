@@ -17,7 +17,7 @@ import (
 	"github.com/Sup3r-Us3r/barber-server/test/factory"
 )
 
-func controller() (*memory.BarberRepositoryMemory, *barberHandler.CreateBarberHandler) {
+func createBarberController() (*memory.BarberRepositoryMemory, *barberHandler.CreateBarberHandler) {
 	barberRepositoryMemory := memory.NewBarberRepositoryMemory()
 	repositoryContainer := repository.RepositoryContainer{
 		BarberRepository: barberRepositoryMemory,
@@ -29,7 +29,7 @@ func controller() (*memory.BarberRepositoryMemory, *barberHandler.CreateBarberHa
 }
 
 func Test_Should_Be_Able_To_Create_A_New_Barber(t *testing.T) {
-	_, handler := controller()
+	_, handler := createBarberController()
 
 	barberData := factory.MakeBarber(entity.Barber{})
 	payload := barberHandler.CreateBarberHandlerRequest{
@@ -51,7 +51,7 @@ func Test_Should_Be_Able_To_Create_A_New_Barber(t *testing.T) {
 }
 
 func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Barber_Already_Exists(t *testing.T) {
-	repository, handler := controller()
+	repository, handler := createBarberController()
 
 	barberData := factory.MakeBarber(entity.Barber{})
 	repository.Barbers = []entity.Barber{
@@ -82,7 +82,7 @@ func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Barber_Already_Exists(t
 }
 
 func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Http_Method_Is_Wrong(t *testing.T) {
-	_, handler := controller()
+	_, handler := createBarberController()
 
 	req := httptest.NewRequest(http.MethodGet, "/v1/barber/create", nil)
 
@@ -94,16 +94,16 @@ func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Http_Method_Is_Wrong(t 
 	}
 }
 
-type errorReader struct{}
+type createBarberErrorReader struct{}
 
-func (er *errorReader) Read(p []byte) (n int, err error) {
+func (cber *createBarberErrorReader) Read(p []byte) (n int, err error) {
 	return 0, errors.New("simulated error while reading request body")
 }
 
 func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Unable_To_Read_Body_Content(t *testing.T) {
-	_, handler := controller()
+	_, handler := createBarberController()
 
-	req := httptest.NewRequest(http.MethodPost, "/v1/barber/create", &errorReader{})
+	req := httptest.NewRequest(http.MethodPost, "/v1/barber/create", &createBarberErrorReader{})
 
 	rr := httptest.NewRecorder()
 	handler.Handle(rr, req)
@@ -114,7 +114,7 @@ func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Unable_To_Read_Body_Con
 }
 
 func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Body_Is_Not_A_JSON(t *testing.T) {
-	_, handler := controller()
+	_, handler := createBarberController()
 
 	body := []byte("invalid json")
 
@@ -141,7 +141,7 @@ func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Body_Is_Not_A_JSON(t *t
 }
 
 func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Payload_Does_Not_Satisfy_Input_DTO(t *testing.T) {
-	_, handler := controller()
+	_, handler := createBarberController()
 
 	payload := `{"name": 1, "email": "barber1@mail.com", "phone": 12934567890}`
 	body := []byte(payload)
@@ -157,7 +157,7 @@ func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Payload_Does_Not_Satisf
 }
 
 func Test_Should_Not_Be_Able_To_Create_A_New_Barber_When_Payload_Is_Empty(t *testing.T) {
-	_, handler := controller()
+	_, handler := createBarberController()
 
 	payload := `{}`
 	body := []byte(payload)
