@@ -1,5 +1,7 @@
 # Go Clean Arch Template
 
+[![Coverage Status](https://coveralls.io/repos/github/Sup3r-Us3r/go-clean-arch-template/badge.svg?branch=main)](https://coveralls.io/github/Sup3r-Us3r/go-clean-arch-template?branch=main)
+
 ## Overview
 
 This template implements the Clean Architecture in a REST API made in Golang, it also has unit tests for `Entities`, `Repositories`, `UseCases`, `Handlers`, `Utility Functions` and `Factories`.
