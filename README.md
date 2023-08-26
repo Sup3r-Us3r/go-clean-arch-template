@@ -44,7 +44,15 @@ This template implements the Clean Architecture in a REST API made in Golang, it
 │   │       │   │   │   └── sign_in.go
 │   │       │   │   └── barber/
 │   │       │   │       ├── create_barber_test.go
-│   │       │   │       └── create_barber.go
+│   │       │   │       ├── create_barber_test.go
+│   │       │   │       ├── delete_barber_test.go
+│   │       │   │       ├── delete_barber.go
+│   │       │   │       ├── fetch_barbers_test.go
+│   │       │   │       ├── fetch_barbers.go
+│   │       │   │       ├── get_barber_by_id_test.go
+│   │       │   │       ├── get_barber_by_id.go
+│   │       │   │       ├── update_barber_test.go
+│   │       │   │       └── update_barber.go
 │   │       │   └── handler.go
 │   │       ├── middleware/
 │   │       │   ├── logger.go
@@ -59,7 +67,17 @@ This template implements the Clean Architecture in a REST API made in Golang, it
 │   │   │   └── sign_in.go
 │   │   ├── barber/
 │   │   │   ├── create_barber_test.go
-│   │   │   └── create_barber.go
+│   │   │   ├── create_barber_test.go
+│   │   │   ├── delete_barber_test.go
+│   │   │   ├── delete_barber.go
+│   │   │   ├── fetch_barbers_test.go
+│   │   │   ├── fetch_barbers.go
+│   │   │   ├── get_barber_by_email_test.go
+│   │   │   ├── get_barber_by_email.go
+│   │   │   ├── get_barber_by_id_test.go
+│   │   │   ├── get_barber_by_id.go
+│   │   │   ├── update_barber_test.go
+│   │   │   └── update_barber.go
 │   │   └── usecase.go
 │   └── util/
 │       ├── do_passwords_match_test.go
@@ -136,6 +154,8 @@ Configure `/etc/hosts`:
 ```
 
 ## Run API
+
+> Note: Need Golang 1.21 or higher
 
 Up Container:
 
